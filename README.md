@@ -1,2 +1,2 @@
 # moonboard
-Data scraping from mooboard API  to normalize information to build ML Models arround the existing boulder problems
+Data scraping from moonboard API  to normalize information to build ML Models around the existing boulder problems
