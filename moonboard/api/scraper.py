@@ -1,18 +1,18 @@
 import requests
 from .access import get_access_token
+from moonboard.config import Setup
 
 BASE_URL = 'https://restapimoonboard.ems-x.com/v1/_moonapi/problems/v3/'
 MAX_API_PROBLEM_PETITION = 5000
 
 
 def get_json_data(
-        self,
         initial_problem,
-        hold_set,
-        angle,
+        moonboard_setup: Setup,
         json_data=None,
+
 ):
-    url = f'{self.BASE_URL}{hold_set}/{angle}/{initial_problem}'
+    url = f'{BASE_URL}{moonboard_setup.value[0]}/{moonboard_setup.value[1]}/{initial_problem}'
 
     headers = {
         'accept-encoding': 'gzip, gzip',
@@ -38,8 +38,10 @@ def get_json_data(
             json_data['data'].append(data)
 
     if len(temp_json['data']) == MAX_API_PROBLEM_PETITION:
-        return self.get_json_data(
-            self.json_data['data'][-1]['apiId'],
+        return get_json_data(
+            json_data['data'][-1]['apiId'],
+            moonboard_setup,
+            json_data,
         )
     else:
         return json_data
